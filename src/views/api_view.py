@@ -1,14 +1,12 @@
-from src.views.http_types.http_request import HttpRequest
 from src.views.http_types.http_response import HttpResponse
 
-class AppView:
+class ApiView:
 
     def home(self) -> HttpResponse:
         formatted_response = {
             "status": True,
             "message": "Welcome to the SEEDIQ-AI API!",
             "version": "1.0.0v",
-            "documentation": "/docs",
             "contact": {
                 "name": "CyberNomads404",
                 "github_organization": "https://github.com/CyberNomads404",

@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify
+from src.middlewares.webhook_auth import webhook_auth_required
 
 # Views the Routes
 from src.views.api_view import ApiView
@@ -11,3 +12,8 @@ def home():
     http_response = api_view.home()
     
     return jsonify(http_response.body), http_response.status_code
+
+@api_routes_bp.route('/webhook', methods=['GET'])
+@webhook_auth_required
+def webhook():
+    return jsonify({"status": True, "message": "Webhook authenticated successfully"}), 200

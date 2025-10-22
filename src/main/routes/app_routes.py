@@ -20,7 +20,4 @@ def favicon():
     return send_from_directory(os.path.join(app_routes_bp.root_path, '../../static'),
                           'favicon.ico')
 
-@app_routes_bp.record_once
-def on_load(state):
-    app = state.app
-    app.register_blueprint(api_routes_bp, url_prefix='/api')
+app_routes_bp.register_blueprint(api_routes_bp, url_prefix='/api')

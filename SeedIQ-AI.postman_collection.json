@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "091da6bb-aab6-4c9d-b684-a0efac70ecee",
+		"name": "SeedIQ-AI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44409413",
+		"_collection_link": "https://seediq-5216.postman.co/workspace/SeedIQ-Workspace~3a32e029-c286-41aa-a517-f42784c17a49/collection/44409413-091da6bb-aab6-4c9d-b684-a0efac70ecee?action=share&source=collection_link&creator=44409413"
+	},
+	"item": [
+		{
+			"name": "webhook",
+			"item": [
+				{
+					"name": "ping",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{webhook_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}webhook",
+							"host": [
+								"{{base_url}}webhook"
+							]
+						},
+						"description": "Endpoint de **boas-vindas** e **teste** **de conectividade** com a API.Normalmente utilizado para verificar se o servidor está online e respondendo corretamente — ideal para **health checks**, **testes de integração** ou **mensagem inicial** após login."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}webhook",
+									"host": [
+										"{{base_url}}webhook"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.1 Python/3.13.3"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 21 Oct 2025 00:10:40 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "72"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Webhook authenticated successfully\",\n    \"status\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "test",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{webhook_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}webhook/test",
+							"host": [
+								"{{base_url}}webhook"
+							],
+							"path": [
+								"test"
+							]
+						},
+						"description": "Endpoint de **boas-vindas** e **teste** **de conectividade** com a API.Normalmente utilizado para verificar se o servidor está online e respondendo corretamente — ideal para **health checks**, **testes de integração** ou **mensagem inicial** após login."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "welcome",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "en",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}",
+					"host": [
+						"{{base_url}}"
+					]
+				},
+				"description": "Endpoint de **boas-vindas** e **teste** **de conectividade** com a API.Normalmente utilizado para verificar se o servidor está online e respondendo corretamente — ideal para **health checks**, **testes de integração** ou **mensagem inicial** após login."
+			},
+			"response": [
+				{
+					"name": "200",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/3.0.1 Python/3.13.3"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 21 Oct 2025 00:11:51 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "771"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"contact\": {\n        \"authors\": [\n            {\n                \"github\": \"https://github.com/Erikli999\",\n                \"name\": \"Erikli Arruda\",\n                \"picture\": \"https://avatars.githubusercontent.com/u/138739176?v=4\"\n            },\n            {\n                \"github\": \"https://github.com/piedro404\",\n                \"name\": \"Pedro Henrique Martins Borges\",\n                \"picture\": \"https://avatars.githubusercontent.com/u/88720549?v=4\"\n            },\n            {\n                \"github\": \"https://github.com/thayna-bezerra\",\n                \"name\": \"Thayna Bezerra\",\n                \"picture\": \"https://avatars.githubusercontent.com/u/58120519?v=4\"\n            }\n        ],\n        \"github_organization\": \"https://github.com/CyberNomads404\",\n        \"name\": \"CyberNomads404\"\n    },\n    \"message\": \"Welcome to the SEEDIQ-AI API!\",\n    \"status\": true,\n    \"version\": \"1.0.0v\"\n}"
+				}
+			]
+		},
+		{
+			"name": "routes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "en",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}_routes",
+					"host": [
+						"{{base_url}}_routes"
+					]
+				},
+				"description": "Endpoint de **boas-vindas** e **teste** **de conectividade** com a API.Normalmente utilizado para verificar se o servidor está online e respondendo corretamente — ideal para **health checks**, **testes de integração** ou **mensagem inicial** após login."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": ""
+		},
+		{
+			"key": "webhook_token",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

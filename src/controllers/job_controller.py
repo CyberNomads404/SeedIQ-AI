@@ -21,12 +21,12 @@ def enqueue(http_request: HttpRequest) -> HttpResponse:
     return HttpResponse(
         status_code=202,
         body={"job_id": async_result.id, "status": "queued"},
-        headers={"Location": f"/api/jobs/{async_result.id}"},
+        # headers={"Location": f"/api/jobs/{async_result.id}"},
     )
     
 def get_status(http_request: HttpRequest) -> HttpResponse:
-    job_id = getattr(getattr(http_request, "path_params", {}), "get", lambda *_: None)("job_id") \
-             or getattr(getattr(http_request, "query", {}), "get", lambda *_: None)("job_id")
+    job_id = http_request.query_params.get("job_id")
+    
     if not job_id:
         return HttpResponse(status_code=400, body={"error": "job_id é obrigatório"})
     async_result = celery_app.AsyncResult(job_id)

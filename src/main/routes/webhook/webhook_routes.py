@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from src.middlewares.webhook_auth import webhook_auth_required
 from src.views.http_types.http_request import HttpRequest
-from src.controllers.job_controller import enqueue
+from src.controllers.job_controller import enqueue, get_status
 
 webhook_routes_bp = Blueprint('webhook_routes', __name__)
 
@@ -20,7 +20,7 @@ def webhook_enqueue():
 
 @webhook_routes_bp.route('/get_status', methods=['GET'])
 def webhook_get_status():
-    http_request = HttpRequest(query=request.args)
-    http_response = enqueue(http_request)
+    http_request = HttpRequest(query_params=request.args)
+    http_response = get_status(http_request)
     
     return jsonify(http_response.body), http_response.status_code

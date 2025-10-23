@@ -7,23 +7,18 @@ from src.views.api_view import ApiView
 
 api_routes_bp = Blueprint('api_routes', __name__)
 
+api_view = ApiView()
+
 @api_routes_bp.route('/', methods=['GET'])
 def home():
-    api_view = ApiView()
     http_response = api_view.home()
     
     return jsonify(http_response.body), http_response.status_code
 
 @api_routes_bp.route('/_routes', methods=['GET'])
 def list_routes():
-    from flask import current_app
-    data = []
-    for rule in current_app.url_map.iter_rules():
-        data.append({
-            "rule": str(rule),
-            "methods": sorted(m for m in rule.methods if m not in ("HEAD", "OPTIONS")),
-            "endpoint": rule.endpoint
-        })
-    return jsonify(data), 200
+    http_response = api_view.list_routes()
+    
+    return jsonify(http_response.body), http_response.status_code
 
 api_routes_bp.register_blueprint(webhook_routes_bp, url_prefix='/webhook')

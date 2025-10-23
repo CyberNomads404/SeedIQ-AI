@@ -1,26 +1,16 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify
 from src.middlewares.webhook_auth import webhook_auth_required
-from src.views.http_types.http_request import HttpRequest
-from src.controllers.job_controller import enqueue, get_status
+from .analyze.analyze_routes import analyze_routes_bp
 
 webhook_routes_bp = Blueprint('webhook_routes', __name__)
 
 @webhook_routes_bp.route('/', methods=['GET'])
 @webhook_auth_required
 def webhook():
-    return jsonify({"status": True, "message": "Webhook authenticated successfully"}), 200
+    return jsonify({
+        "status": True, 
+        "message": "Webhook authenticated successfully",
+        "data": None,
+    }), 200
 
-@webhook_routes_bp.route('/enqueue', methods=['POST'])
-@webhook_auth_required
-def webhook_enqueue():
-    http_request = HttpRequest(body=request.json)
-    http_response = enqueue(http_request)
-    
-    return jsonify(http_response.body), http_response.status_code
-
-@webhook_routes_bp.route('/get_status', methods=['GET'])
-def webhook_get_status():
-    http_request = HttpRequest(query_params=request.args)
-    http_response = get_status(http_request)
-    
-    return jsonify(http_response.body), http_response.status_code
+webhook_routes_bp.register_blueprint(analyze_routes_bp, url_prefix='/analyze')

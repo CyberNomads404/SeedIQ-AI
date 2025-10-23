@@ -8,7 +8,7 @@ celery_app = Celery(
     "seediq_ai",
     broker=CELERY_BROKER_URL,
     backend=CELERY_RESULT_BACKEND,
-    include=["src.services.tasks"],
+    include=["src.drivers.analyze.analyze_handler"],
 )
 
 celery_app.conf.update(
@@ -18,8 +18,3 @@ celery_app.conf.update(
     timezone="UTC",
     enable_utc=True,
 )
-
-try:
-    from src.services import tasks  
-except Exception:
-    pass

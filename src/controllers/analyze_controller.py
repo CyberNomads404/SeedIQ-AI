@@ -20,9 +20,10 @@ class AnalyzeController:
         }
         
     def get_status(self, http_request: HttpRequest) -> Dict[str, Any]:
-        job_id = http_request.query_params.get("job_id")
+        job_id = http_request.path_params.get("job_id")
         
         async_result = celery_app.AsyncResult(job_id)
+        
         payload = {
             "job_id": job_id, 
             "status": async_result.state,

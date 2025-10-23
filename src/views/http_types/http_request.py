@@ -9,8 +9,10 @@ class HttpRequest:
             self, 
             header: Dict = None, 
             body: Dict = None, 
-            query_params: Dict = None
+            query_params: Dict = None,
+            path_params: Dict = None,
         ) -> None:
         self.header = header
         self.body = body
         self.query_params = query_params
+        self.path_params = path_params

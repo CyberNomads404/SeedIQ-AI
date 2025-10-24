@@ -1,0 +1,548 @@
+{
+	"info": {
+		"_postman_id": "091da6bb-aab6-4c9d-b684-a0efac70ecee",
+		"name": "SeedIQ-AI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44409413",
+		"_collection_link": "https://seediq-5216.postman.co/workspace/SeedIQ-Workspace~3a32e029-c286-41aa-a517-f42784c17a49/collection/44409413-091da6bb-aab6-4c9d-b684-a0efac70ecee?action=share&source=collection_link&creator=44409413"
+	},
+	"item": [
+		{
+			"name": "webhook",
+			"item": [
+				{
+					"name": "analyze",
+					"item": [
+						{
+							"name": "enqueue",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{webhook_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"callback_url\": \"https://webhook.site/42c76dba-1db2-496f-8ce2-411b4f181c93\",\n    \"payload\": {\n        \"external_id\": \"12312u3bi12hjhasdjdcaskjhdbaskdhaskdj\",\n        \"image_url\": \"https://imagens-cdn.canalrural.com.br/wp-content/uploads/gr%C3%A3os-soja.jpg\",\n        \"seed_category\": \"soy\"\n    }\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}webhook/analyze/enqueue",
+									"host": [
+										"{{base_url}}webhook"
+									],
+									"path": [
+										"analyze",
+										"enqueue"
+									]
+								},
+								"description": "Endpoint de **boas-vindas** e **teste** **de conectividade** com a API.Normalmente utilizado para verificar se o servidor está online e respondendo corretamente — ideal para **health checks**, **testes de integração** ou **mensagem inicial** após login."
+							},
+							"response": [
+								{
+									"name": "202",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept-Language",
+												"value": "en",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"callback_url\": \"https://webhook.site/42c76dba-1db2-496f-8ce2-411b4f181c93\",\n    \"payload\": {\n        \"externalId\": \"12312u3bi12hjhasdjdcaskjhdbaskdhaskdj\",\n        \"imageUrl\": \"https://imagens-cdn.canalrural.com.br/wp-content/uploads/gr%C3%A3os-soja.jpg\",\n        \"seedCategory\": \"soy\"\n    }\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}webhook/analyze/enqueue",
+											"host": [
+												"{{base_url}}webhook"
+											],
+											"path": [
+												"analyze",
+												"enqueue"
+											]
+										}
+									},
+									"status": "ACCEPTED",
+									"code": 202,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.0.1 Python/3.13.3"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 23 Oct 2025 14:40:42 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "215"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"external_id\": \"12312u3bi12hjhasdjdcaskjhdbaskdhaskdj\",\n        \"job_id\": \"bd77a31a-aeab-43d0-b671-b2a8a7791223\",\n        \"status\": \"QUEUED\"\n    },\n    \"message\": \"Job queued successfully\",\n    \"status\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "get_status",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{webhook_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}webhook/analyze/get_status/088fe57b-bb46-45e8-af47-2d78425e7804",
+									"host": [
+										"{{base_url}}webhook"
+									],
+									"path": [
+										"analyze",
+										"get_status",
+										"088fe57b-bb46-45e8-af47-2d78425e7804"
+									]
+								},
+								"description": "Endpoint de **boas-vindas** e **teste** **de conectividade** com a API.Normalmente utilizado para verificar se o servidor está online e respondendo corretamente — ideal para **health checks**, **testes de integração** ou **mensagem inicial** após login."
+							},
+							"response": [
+								{
+									"name": "200",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept-Language",
+												"value": "en",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}webhook/analyze/get_status/088fe57b-bb46-45e8-af47-2d78425e7804",
+											"host": [
+												"{{base_url}}webhook"
+											],
+											"path": [
+												"analyze",
+												"get_status",
+												"088fe57b-bb46-45e8-af47-2d78425e7804"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.0.1 Python/3.13.3"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 23 Oct 2025 15:32:07 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "472"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"job_id\": \"088fe57b-bb46-45e8-af47-2d78425e7804\",\n        \"payload\": {\n            \"external_id\": \"12312u3bi12hjhasdjdcaskjhdbaskdhaskdj\",\n            \"image_url\": \"https://imagens-cdn.canalrural.com.br/wp-content/uploads/gr%C3%A3os-soja.jpg\",\n            \"seed_category\": \"soy\"\n        },\n        \"result\": {\n            \"burned\": 17,\n            \"good_grains\": 126,\n            \"greenish\": 14\n        },\n        \"status\": \"COMPLETED\"\n    },\n    \"message\": \"Job status retrieved successfully\",\n    \"status\": true\n}"
+								},
+								{
+									"name": "200",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept-Language",
+												"value": "en",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}webhook/analyze/get_status/088fe57b-bb46-45e8-af47-2d78425e780a",
+											"host": [
+												"{{base_url}}webhook"
+											],
+											"path": [
+												"analyze",
+												"get_status",
+												"088fe57b-bb46-45e8-af47-2d78425e780a"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.0.1 Python/3.13.3"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 23 Oct 2025 15:33:48 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "207"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"job_id\": \"088fe57b-bb46-45e8-af47-2d78425e780a\",\n        \"payload\": null,\n        \"result\": null,\n        \"status\": \"PENDING\"\n    },\n    \"message\": \"Job status retrieved successfully\",\n    \"status\": true\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "ping",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{webhook_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}webhook",
+							"host": [
+								"{{base_url}}webhook"
+							]
+						},
+						"description": "Endpoint de **boas-vindas** e **teste** **de conectividade** com a API.Normalmente utilizado para verificar se o servidor está online e respondendo corretamente — ideal para **health checks**, **testes de integração** ou **mensagem inicial** após login."
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}webhook",
+									"host": [
+										"{{base_url}}webhook"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.1 Python/3.13.3"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Oct 2025 14:33:44 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "88"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": null,\n    \"message\": \"Webhook authenticated successfully\",\n    \"status\": true\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "welcome",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "en",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}",
+					"host": [
+						"{{base_url}}"
+					]
+				},
+				"description": "Endpoint de **boas-vindas** e **teste** **de conectividade** com a API.Normalmente utilizado para verificar se o servidor está online e respondendo corretamente — ideal para **health checks**, **testes de integração** ou **mensagem inicial** após login."
+			},
+			"response": [
+				{
+					"name": "200",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/3.0.1 Python/3.13.3"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 23 Oct 2025 14:33:07 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "831"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"contact\": {\n            \"authors\": [\n                {\n                    \"github\": \"https://github.com/Erikli999\",\n                    \"name\": \"Erikli Arruda\",\n                    \"picture\": \"https://avatars.githubusercontent.com/u/138739176?v=4\"\n                },\n                {\n                    \"github\": \"https://github.com/piedro404\",\n                    \"name\": \"Pedro Henrique Martins Borges\",\n                    \"picture\": \"https://avatars.githubusercontent.com/u/88720549?v=4\"\n                },\n                {\n                    \"github\": \"https://github.com/thayna-bezerra\",\n                    \"name\": \"Thayna Bezerra\",\n                    \"picture\": \"https://avatars.githubusercontent.com/u/58120519?v=4\"\n                }\n            ],\n            \"github_organization\": \"https://github.com/CyberNomads404\",\n            \"name\": \"CyberNomads404\"\n        },\n        \"version\": \"1.0.0v\"\n    },\n    \"message\": \"Welcome to the SEEDIQ-AI API!\",\n    \"status\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "routes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "en",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}_routes",
+					"host": [
+						"{{base_url}}_routes"
+					]
+				},
+				"description": "Endpoint de **boas-vindas** e **teste** **de conectividade** com a API.Normalmente utilizado para verificar se o servidor está online e respondendo corretamente — ideal para **health checks**, **testes de integração** ou **mensagem inicial** após login."
+			},
+			"response": [
+				{
+					"name": "200",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}_routes",
+							"host": [
+								"{{base_url}}_routes"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/3.0.1 Python/3.13.3"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 23 Oct 2025 14:33:13 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1518"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"routes\": [\n            {\n                \"endpoint\": \"static\",\n                \"methods\": [\n                    \"GET\"\n                ],\n                \"rule\": \"/static/<path:filename>\"\n            },\n            {\n                \"endpoint\": \"app_routes.swagger_ui\",\n                \"methods\": [\n                    \"GET\"\n                ],\n                \"rule\": \"/\"\n            },\n            {\n                \"endpoint\": \"app_routes.swagger\",\n                \"methods\": [\n                    \"GET\"\n                ],\n                \"rule\": \"/openapi.json\"\n            },\n            {\n                \"endpoint\": \"app_routes.favicon\",\n                \"methods\": [\n                    \"GET\"\n                ],\n                \"rule\": \"/favicon.ico\"\n            },\n            {\n                \"endpoint\": \"app_routes.api_routes.home\",\n                \"methods\": [\n                    \"GET\"\n                ],\n                \"rule\": \"/api/\"\n            },\n            {\n                \"endpoint\": \"app_routes.api_routes.list_routes\",\n                \"methods\": [\n                    \"GET\"\n                ],\n                \"rule\": \"/api/_routes\"\n            },\n            {\n                \"endpoint\": \"app_routes.api_routes.webhook_routes.webhook\",\n                \"methods\": [\n                    \"GET\"\n                ],\n                \"rule\": \"/api/webhook/\"\n            },\n            {\n                \"endpoint\": \"app_routes.api_routes.webhook_routes.analyze_routes.analyze_enqueue\",\n                \"methods\": [\n                    \"POST\"\n                ],\n                \"rule\": \"/api/webhook/analyze/enqueue\"\n            },\n            {\n                \"endpoint\": \"app_routes.api_routes.webhook_routes.analyze_routes.analyze_get_status\",\n                \"methods\": [\n                    \"GET\"\n                ],\n                \"rule\": \"/api/webhook/analyze/get_status\"\n            }\n        ]\n    },\n    \"message\": \"List of all available routes\",\n    \"status\": true\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": ""
+		},
+		{
+			"key": "webhook_token",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

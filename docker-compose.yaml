@@ -14,6 +14,9 @@ services:
     depends_on:
       - redis
     restart: always
+    networks:
+      - default
+      - shared_net
 
   worker:
     build:
@@ -29,6 +32,9 @@ services:
     depends_on:
       - redis
     restart: always
+    networks:
+      - default
+      - shared_net
 
   flower:
     build:
@@ -46,9 +52,19 @@ services:
     depends_on:
       - redis
     restart: always
+    networks:
+      - default
 
   redis:
     image: redis:alpine
     ports:
       - "${REDIS_PORT:-6379}:6379"
     restart: always
+    networks:
+      - default
+  
+networks:
+  default:
+    driver: bridge
+  shared_net:          
+    external: true

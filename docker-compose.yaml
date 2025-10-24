@@ -21,6 +21,8 @@ services:
       dockerfile: Dockerfile
     env_file:
       - .env
+    environment:
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL:-redis://redis:6379/0}
     volumes:
       - ./:/app
     command: ["python", "-m", "celery", "-A", "src.services.celery_app.celery_app", "worker", "-l", "info", "--concurrency=${CELERY_CONCURRENCY:-1}", "--events"]
@@ -34,11 +36,13 @@ services:
       dockerfile: Dockerfile
     env_file:
       - .env
+    environment:
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL:-redis://redis:6379/0}
     volumes:
       - ./:/app
     ports:
       - "${FLOWER_PORT:-5555}:5555"
-    command: ["python", "-m", "celery", "flower", "--broker=redis://${REDIS_HOST:-redis}:6379/0"]
+    command: ["python", "-m", "celery", "flower", "--broker=${CELERY_BROKER_URL:-redis://redis:6379/0}"]
     depends_on:
       - redis
     restart: always

@@ -2,9 +2,10 @@
 	"info": {
 		"_postman_id": "091da6bb-aab6-4c9d-b684-a0efac70ecee",
 		"name": "SeedIQ-AI",
+		"description": "<img src=\"https://content.pstmn.io/d2c9613d-2733-4292-ae78-739e01a832c1/aW1hZ2UucG5n\" width=\"169\" height=\"211\">\n\nA **API de Inteligência Artificial (IA)** do **SeedIQ** é o núcleo responsável pelo processamento e análise das imagens enviadas pelo aplicativo.\n\nSeu principal objetivo é identificar, classificar e quantificar características dos grãos (como soja e milho), utilizando modelos de visão computacional e aprendizado de máquina para fornecer resultados precisos e automatizados.\n\nEssa API atua em conjunto com a **API central do SeedIQ**, recebendo solicitações de classificação, processando as imagens em tempo real e retornando os resultados da análise, que posteriormente são enviados de volta ao sistema principal por meio de _webhooks_.\n\nExemplo de uso: utilizada para processar e analisar imagens de grãos capturadas em campo, permitindo a classificação automática de acordo com a qualidade e tipo de semente.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "44409413",
-		"_collection_link": "https://seediq-5216.postman.co/workspace/SeedIQ-Workspace~3a32e029-c286-41aa-a517-f42784c17a49/collection/44409413-091da6bb-aab6-4c9d-b684-a0efac70ecee?action=share&source=collection_link&creator=44409413"
+		"_collection_link": "https://seediq-5216.postman.co/workspace/3a32e029-c286-41aa-a517-f42784c17a49/collection/44409413-091da6bb-aab6-4c9d-b684-a0efac70ecee?action=share&source=collection_link&creator=44409413"
 	},
 	"item": [
 		{
@@ -37,7 +38,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"callback_url\": \"https://webhook.site/42c76dba-1db2-496f-8ce2-411b4f181c93\",\n    \"payload\": {\n        \"external_id\": \"12312u3bi12hjhasdjdcaskjhdbaskdhaskdj\",\n        \"image_url\": \"https://imagens-cdn.canalrural.com.br/wp-content/uploads/gr%C3%A3os-soja.jpg\",\n        \"seed_category\": \"soy\"\n    }\n}\n",
+									"raw": "{\n    \"callback_url\": \"http://laravel.test/api/webhook/analyze\",\n    \"payload\": {\n        \"external_id\": \"2da01f62-c895-4148-a3ff-92644810c4db\",\n        \"image_url\": \"https://imagens-cdn.canalrural.com.br/wp-content/uploads/gr%C3%A3os-soja.jpg\",\n        \"seed_category\": \"soy\"\n    }\n}\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -54,7 +55,7 @@
 										"enqueue"
 									]
 								},
-								"description": "Endpoint de **boas-vindas** e **teste** **de conectividade** com a API.Normalmente utilizado para verificar se o servidor está online e respondendo corretamente — ideal para **health checks**, **testes de integração** ou **mensagem inicial** após login."
+								"description": "Este endpoint adiciona uma nova tarefa à **fila de análise de imagens de grãos**.  \n  \nA API central envia uma requisição para este endpoint informando a imagem, o identificador da classificação (`external_id`) e a categoria da semente.  \n  \nApós o envio, a tarefa será processada pelo sistema de IA, e o resultado será retornado via **webhook** no `callback_url` informado.\n\n**Exemplo de Uso:**  \n  \nUtilizado pela API central para enviar imagens de grãos que devem ser analisadas automaticamente, garantindo que cada classificação seja processada e os resultados retornados de forma assíncrona."
 							},
 							"response": [
 								{
@@ -79,9 +80,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{base_url}}webhook/analyze/enqueue",
+											"raw": "webhook/analyze/enqueue",
 											"host": [
-												"{{base_url}}webhook"
+												"webhook"
 											],
 											"path": [
 												"analyze",
@@ -146,17 +147,17 @@
 									}
 								],
 								"url": {
-									"raw": "{{base_url}}webhook/analyze/get_status/088fe57b-bb46-45e8-af47-2d78425e7804",
+									"raw": "{{base_url}}webhook/analyze/get_status/161ef496-3ca7-4940-85ae-c1587403a115",
 									"host": [
 										"{{base_url}}webhook"
 									],
 									"path": [
 										"analyze",
 										"get_status",
-										"088fe57b-bb46-45e8-af47-2d78425e7804"
+										"161ef496-3ca7-4940-85ae-c1587403a115"
 									]
 								},
-								"description": "Endpoint de **boas-vindas** e **teste** **de conectividade** com a API.Normalmente utilizado para verificar se o servidor está online e respondendo corretamente — ideal para **health checks**, **testes de integração** ou **mensagem inicial** após login."
+								"description": "Este endpoint retorna o status atual de uma tarefa de análise de imagem de grãos previamente enfileirada.  \n  \nÉ utilizado para monitorar se a análise já foi concluída, está em andamento ou se ocorreu algum erro durante o processamento.\n\n**Exemplo de Uso:**  \n  \nUtilizado pela API central ou sistemas integrados para verificar o progresso de uma análise específica antes do recebimento do resultado final via webhook."
 							},
 							"response": [
 								{
@@ -172,9 +173,9 @@
 											}
 										],
 										"url": {
-											"raw": "{{base_url}}webhook/analyze/get_status/088fe57b-bb46-45e8-af47-2d78425e7804",
+											"raw": "webhook/analyze/get_status/088fe57b-bb46-45e8-af47-2d78425e7804",
 											"host": [
-												"{{base_url}}webhook"
+												"webhook"
 											],
 											"path": [
 												"analyze",
@@ -273,7 +274,8 @@
 								}
 							]
 						}
-					]
+					],
+					"description": "Esta pasta contém endpoints responsáveis pela **gestão da fila de análises de imagens de grãos**.\n\nEla recebe requisições enviadas pela **API central do SeedIQ**, que envia imagens ou tarefas de classificação para serem processadas. Os endpoints dentro desta pasta permitem iniciar, monitorar e controlar o processamento das análises, garantindo que cada imagem seja analisada corretamente e que os resultados sejam retornados ao sistema central.\n\n**Exemplo de Uso:** Utilizado pela API central para enviar novas tarefas de classificação de grãos, consultar o status das análises em andamento e processar os resultados antes do envio para os webhooks."
 				},
 				{
 					"name": "ping",
@@ -303,7 +305,7 @@
 								"{{base_url}}webhook"
 							]
 						},
-						"description": "Endpoint de **boas-vindas** e **teste** **de conectividade** com a API.Normalmente utilizado para verificar se o servidor está online e respondendo corretamente — ideal para **health checks**, **testes de integração** ou **mensagem inicial** após login."
+						"description": "Este endpoint recebe requisições enviadas pelo **cliente** para registrar notificações ou atualizações gerais relacionadas às análises de grãos. Ele funciona como o ponto central para envio de dados de classificação, permitindo que sistemas integrados atualizem informações no **SeedIQ** de forma segura.\n\nTodos os envios devem ser autenticados via **Bearer Token** ou **chave de API** no cabeçalho `Authorization`.\n\n**Exemplo de Uso:**  \n  \nUtilizado pelo cliente para enviar resultados de análises ou notificações de processamento, garantindo que o sistema central registre corretamente os dados recebidos."
 					},
 					"response": [
 						{
@@ -319,9 +321,9 @@
 									}
 								],
 								"url": {
-									"raw": "{{base_url}}webhook",
+									"raw": "webhook",
 									"host": [
-										"{{base_url}}webhook"
+										"webhook"
 									]
 								}
 							},
@@ -359,7 +361,8 @@
 						}
 					]
 				}
-			]
+			],
+			"description": "Esta pasta contém endpoints que recebem notificações enviadas pelo **cliente** (aplicativo SeedIQ ou sistemas integrados) para registrar resultados de classificações ou atualizar informações de análise de grãos.\n\nOs webhooks permitem enviar dados de forma segura e automatizada, incluindo `external_id` da classificação, status da análise, resultados numéricos e informações adicionais de payload. Todos os endpoints exigem autenticação via **chave de API (WEBHOOK-API-KEY)** no cabeçalho da requisição.\n\n**Exemplo de Uso:** O cliente envia o resultado de uma análise de grãos realizada externamente para a API de IA, que valida e registra os dados no sistema central."
 		},
 		{
 			"name": "welcome",
@@ -379,7 +382,7 @@
 						"{{base_url}}"
 					]
 				},
-				"description": "Endpoint de **boas-vindas** e **teste** **de conectividade** com a API.Normalmente utilizado para verificar se o servidor está online e respondendo corretamente — ideal para **health checks**, **testes de integração** ou **mensagem inicial** após login."
+				"description": "Este endpoint retorna uma mensagem de boas-vindas da **API de Inteligência Artificial (IA)** do **SeedIQ**, indicando que a API está ativa e funcionando corretamente.\n\n**Exemplo de Uso:**  \n  \nUtilizado para verificar se a API de IA está online e acessível antes de iniciar chamadas de processamento ou integração com outros sistemas."
 			},
 			"response": [
 				{
@@ -395,10 +398,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}",
-							"host": [
-								"{{base_url}}"
-							]
+							"raw": ""
 						}
 					},
 					"status": "OK",
@@ -453,7 +453,7 @@
 						"{{base_url}}_routes"
 					]
 				},
-				"description": "Endpoint de **boas-vindas** e **teste** **de conectividade** com a API.Normalmente utilizado para verificar se o servidor está online e respondendo corretamente — ideal para **health checks**, **testes de integração** ou **mensagem inicial** após login."
+				"description": "Este endpoint retorna todas as rotas disponíveis na API de IA do **SeedIQ**, incluindo métodos HTTP, caminhos e descrições associadas. Ele é útil para depuração, descoberta de endpoints e verificação da configuração da API em tempo real.\n\n**Exemplo de Uso:**  \n  \nUtilizado por desenvolvedores e sistemas integrados para obter uma visão geral de todas as rotas implementadas, facilitando testes e integração com novos endpoints."
 			},
 			"response": [
 				{
@@ -469,9 +469,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}_routes",
+							"raw": "_routes",
 							"host": [
-								"{{base_url}}_routes"
+								"_routes"
 							]
 						}
 					},

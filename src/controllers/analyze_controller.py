@@ -3,7 +3,7 @@ from typing import Any, Dict
 
 from ..drivers.analyze.analyze_handler import process_job
 from ..views.http_types.http_request import HttpRequest
-from ..services.celery_app import celery_app
+from ..services.celery_service import celery_app
 
 class AnalyzeController:
     def enqueue(self, http_request: HttpRequest) -> Dict[str, Any]:

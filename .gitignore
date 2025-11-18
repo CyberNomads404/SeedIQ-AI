@@ -5,3 +5,5 @@ env/
 .vercel
 .venv/
 teste.*
+
+test.*

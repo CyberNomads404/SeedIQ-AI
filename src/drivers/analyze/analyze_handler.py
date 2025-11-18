@@ -9,7 +9,7 @@ from typing import Any, Dict
 
 import requests
 
-from src.services.celery_app import celery_app
+from src.services.celery_service import celery_app
 
 def _simulate_business_logic(payload: Dict[str, Any]) -> Dict[str, Any]:
     time.sleep(10)

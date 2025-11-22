@@ -29,16 +29,23 @@ class AnalyzeController:
             "status": async_result.state,
             "payload": None,
             "result": None,
+            'params_ai': None,
+            'error': None
         }
         
         if async_result.ready():
             res = async_result.result
             if async_result.successful():
                 payload["payload"] = res.get("payload", payload["payload"])
-                payload["result"] = res.get("result", payload["result"])
-                payload["status"] = "COMPLETED"
+                payload["status"] = res.get("status", payload["status"])
+                if payload["status"] == "COMPLETED":
+                    payload["result"] = res.get("result", payload["result"])
+                    payload["params_ai"] = res.get("params_ai", payload["params_ai"])
+                else:
+                    payload["error"] = res.get("error", payload["error"])
+                
             else:
-                payload["result"] = str(res)
+                payload['result'] = str(res)
                 payload["status"] = "FAILED"
             
         return payload

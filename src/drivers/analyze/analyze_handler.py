@@ -1,7 +1,7 @@
 from typing import Any, Dict
 import requests
 from src.services.celery_service import celery_app
-from src.drivers.analyze.analyze_loader import AnalyzerLoader
+from src.drivers.analyze.analyze_loader import AnalyzeLoader
 
 @celery_app.task(
     bind=True,
@@ -11,10 +11,14 @@ from src.drivers.analyze.analyze_loader import AnalyzerLoader
     retry_kwargs={"max_retries": 3},
 )
 def process_job(self, payload: Dict[str, Any], callback_url: str, webhook_secret: str) -> Dict[str, Any]:
+    error_message = None
+    params_ai = None
+    result = None
+
     try:
         seed_category = payload["seed_category"]
-        analyzer = AnalyzerLoader.load(seed_category)
-        result = analyzer.analyze(payload)
+        analyzer = AnalyzeLoader.load(seed_category)
+        result, params_ai = analyzer.analyze(payload)
 
         status = "COMPLETED"
         message = "Analysis completed successfully"
@@ -23,6 +27,7 @@ def process_job(self, payload: Dict[str, Any], callback_url: str, webhook_secret
         result = None
         status = "FAILED"
         message = f"Analysis failed: {str(e)}"
+        error_message = str(e)
 
     headers = {"Content-Type": "application/json"}
     headers["WEBHOOK-API-KEY"] = webhook_secret
@@ -35,6 +40,7 @@ def process_job(self, payload: Dict[str, Any], callback_url: str, webhook_secret
             "status": status,
             "payload": payload,
             "result": result,
+            "params_ai": params_ai
         }
     }, headers=headers, timeout=30)
     resp.raise_for_status()
@@ -43,5 +49,6 @@ def process_job(self, payload: Dict[str, Any], callback_url: str, webhook_secret
         "payload": payload,
         "status": status,
         "result": result,
-        "error": str(e) if status == "FAILED" else None
+        "params_ai": params_ai ,
+        "error": error_message
     }

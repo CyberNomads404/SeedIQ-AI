@@ -1,4 +1,4 @@
-from base_ai import BaseAnalyze
+from .base_ai import BaseAnalyze
 class CornAnalyze(BaseAnalyze):
     def __init__(self, image_service):
         super().__init__(image_service)
@@ -23,7 +23,8 @@ class CornAnalyze(BaseAnalyze):
         count_valid = 0
 
         for contour in contours:
-            area = self.cv2.contourArea(contour)
+            x, y, w, h = self.cv2.boundingRect(contour)
+            area = w * h
             if self.min_area <= area <= self.max_area:
                 total_area += area
                 count_valid += 1
@@ -71,7 +72,7 @@ class CornAnalyze(BaseAnalyze):
         self._average_contour_area(contours)
 
         result = {
-            "good_grains": 0,
+            "good": 0,
             "burned": 0,
             "greenish": 0,
             "small": 0,
@@ -85,6 +86,7 @@ class CornAnalyze(BaseAnalyze):
             
             contour_area = w * h
             classification, reason = self._classify_corn(contour_area, grain_image)
+            print(f"Grain {idx+1}: Classified as '{classification}' because {reason}.")
             result[classification] += 1
 
         return result, {
@@ -92,4 +94,3 @@ class CornAnalyze(BaseAnalyze):
             "min_avg_area": self.min_avg_area,
             "max_avg_area": self.max_avg_area
         }
-    

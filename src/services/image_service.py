@@ -28,7 +28,7 @@ class ImageService:
         filename = self.generate_filename(url)
         save_path = os.path.join(self.base_path, filename)
 
-        response = requests.get(url, stream=True)
+        response = requests.get(url, stream=True, timeout=10)
 
         if response.status_code != 200:
             raise Exception(f"Falha ao baixar imagem. HTTP {response.status_code}")

@@ -1,23 +1,7 @@
-from __future__ import annotations
-
-import hmac
-import hashlib
-import json
-import os
-import time
 from typing import Any, Dict
-
 import requests
-
 from src.services.celery_service import celery_app
-
-def _simulate_business_logic(payload: Dict[str, Any]) -> Dict[str, Any]:
-    time.sleep(10)
-    return {
-        "good_grains": 126,
-        "burned": 17,
-        "greenish": 14,
-    }
+from src.drivers.analyze.analyze_loader import AnalyzerLoader
 
 @celery_app.task(
     bind=True,
@@ -27,23 +11,37 @@ def _simulate_business_logic(payload: Dict[str, Any]) -> Dict[str, Any]:
     retry_kwargs={"max_retries": 3},
 )
 def process_job(self, payload: Dict[str, Any], callback_url: str, webhook_secret: str) -> Dict[str, Any]:
-    result = _simulate_business_logic(payload)
-    
+    try:
+        seed_category = payload["seed_category"]
+        analyzer = AnalyzerLoader.load(seed_category)
+        result = analyzer.analyze(payload)
+
+        status = "COMPLETED"
+        message = "Analysis completed successfully"
+
+    except Exception as e:
+        result = None
+        status = "FAILED"
+        message = f"Analysis failed: {str(e)}"
+
     headers = {"Content-Type": "application/json"}
     headers["WEBHOOK-API-KEY"] = webhook_secret
 
     resp = requests.post(callback_url, json={
-        "status": True,
-        "message": "Analysis completed successfully",
+        "status": True if status == "COMPLETED" else False,
+        "message": message,
         "data": {
             "job_id": self.request.id,
-            "status": "COMPLETED",
+            "status": status,
             "payload": payload,
             "result": result,
         }
     }, headers=headers, timeout=30)
     resp.raise_for_status()
+
     return {
         "payload": payload,
+        "status": status,
         "result": result,
+        "error": str(e) if status == "FAILED" else None
     }

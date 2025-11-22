@@ -1,1 +1,1 @@
-celery -A src.services.celery_app.celery_app worker -l info --concurrency=1
+celery -A src.services.celery_service.celery_service worker -l info --concurrency=1

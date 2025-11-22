@@ -28,7 +28,7 @@ services:
       - CELERY_BROKER_URL=${CELERY_BROKER_URL:-redis://redis:6379/0}
     volumes:
       - ./:/app
-    command: ["python", "-m", "celery", "-A", "src.services.celery_app.celery_app", "worker", "-l", "info", "--concurrency=${CELERY_CONCURRENCY:-1}", "--events"]
+    command: ["python", "-m", "celery", "-A", "src.services.celery_service.celery_service", "worker", "-l", "info", "--concurrency=${CELERY_CONCURRENCY:-1}", "--events"]
     depends_on:
       - redis
     restart: always

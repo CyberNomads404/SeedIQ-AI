@@ -1,9 +1,9 @@
 from typing import Any, Dict
 import requests
-from src.services.celery_service import celery_app
+from src.services.celery_service import celery_service
 from src.drivers.analyze.analyze_loader import AnalyzeLoader
 
-@celery_app.task(
+@celery_service.task(
     bind=True,
     name="seediq.process_job",
     autoretry_for=(requests.RequestException,), 

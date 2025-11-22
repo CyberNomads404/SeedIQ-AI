@@ -1,10 +1,8 @@
 import importlib
-from typing import Dict, Any
 from .analyze_types.base_ai import BaseAnalyze
 from src.services.image_service import ImageService
 
 class AnalyzeLoader:
-
     @staticmethod
     def load(seed_category: str) -> BaseAnalyze:
         module_name = f"src.drivers.analyze.analyze_types.{seed_category}_ai"

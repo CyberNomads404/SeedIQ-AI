@@ -3,7 +3,7 @@ from typing import Any, Dict
 
 from ..drivers.analyze.analyze_handler import process_job
 from ..views.http_types.http_request import HttpRequest
-from ..services.celery_service import celery_app
+from ..services.celery_service import celery_service
 
 class AnalyzeController:
     def enqueue(self, http_request: HttpRequest) -> Dict[str, Any]:
@@ -22,7 +22,7 @@ class AnalyzeController:
     def get_status(self, http_request: HttpRequest) -> Dict[str, Any]:
         job_id = http_request.path_params.get("job_id")
         
-        async_result = celery_app.AsyncResult(job_id)
+        async_result = celery_service.AsyncResult(job_id)
         
         payload = {
             "job_id": job_id, 

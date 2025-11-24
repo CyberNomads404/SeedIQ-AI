@@ -126,9 +126,3 @@ pytest
 3. Faça PR com descrição e testes.
 
 ---
-
-Se quiser, eu atualizo automaticamente o `docker-compose.yaml` para garantir que `redis` esteja na mesma network dos serviços ou corro um fix no `src/services/celery_service.py` para usar `REDIS_PORT` do `.env` — diga qual prefere e eu aplico as mudanças.
-
----
-
-_Última atualização: documentação simplificada com opções Docker e local — escolha a que preferir e eu te guio nos próximos passos._

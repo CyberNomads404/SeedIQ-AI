@@ -5,7 +5,7 @@
 		"description": "<img src=\"https://content.pstmn.io/d2c9613d-2733-4292-ae78-739e01a832c1/aW1hZ2UucG5n\" width=\"169\" height=\"211\">\n\nA **API de Inteligência Artificial (IA)** do **SeedIQ** é o núcleo responsável pelo processamento e análise das imagens enviadas pelo aplicativo.\n\nSeu principal objetivo é identificar, classificar e quantificar características dos grãos (como soja e milho), utilizando modelos de visão computacional e aprendizado de máquina para fornecer resultados precisos e automatizados.\n\nEssa API atua em conjunto com a **API central do SeedIQ**, recebendo solicitações de classificação, processando as imagens em tempo real e retornando os resultados da análise, que posteriormente são enviados de volta ao sistema principal por meio de _webhooks_.\n\nExemplo de uso: utilizada para processar e analisar imagens de grãos capturadas em campo, permitindo a classificação automática de acordo com a qualidade e tipo de semente.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "44409413",
-		"_collection_link": "https://seediq-5216.postman.co/workspace/3a32e029-c286-41aa-a517-f42784c17a49/collection/44409413-091da6bb-aab6-4c9d-b684-a0efac70ecee?action=share&source=collection_link&creator=44409413"
+		"_collection_link": "https://seediq-5216.postman.co/workspace/SeedIQ-Workspace~3a32e029-c286-41aa-a517-f42784c17a49/collection/44409413-091da6bb-aab6-4c9d-b684-a0efac70ecee?action=share&source=collection_link&creator=44409413"
 	},
 	"item": [
 		{
@@ -38,7 +38,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"callback_url\": \"http://laravel.test/api/webhook/analyze\",\n    \"payload\": {\n        \"external_id\": \"2da01f62-c895-4148-a3ff-92644810c4db\",\n        \"image_url\": \"https://imagens-cdn.canalrural.com.br/wp-content/uploads/gr%C3%A3os-soja.jpg\",\n        \"seed_category\": \"soy\"\n    }\n}\n",
+									"raw": "{\n    \"callback_url\": \"https://webhook.site/6e3729cc-fea0-4eb5-94c1-99536689165e\",\n    \"payload\": {\n        \"external_id\": \"2da01f62-c895-4148-a3ff-92644810c4db\",\n        \"image_url\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/base-images/storage/v1/s3/base-images/base-images/classifications/1aHgkzTpbJaY2utbT5cddZksDcsecnlwp1hkvJ4c.jpg\",\n        \"seed_category\": \"corn\"\n    }\n}\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -80,9 +80,9 @@
 											}
 										},
 										"url": {
-											"raw": "webhook/analyze/enqueue",
+											"raw": "{{base_url}}webhook/analyze/enqueue",
 											"host": [
-												"webhook"
+												"{{base_url}}webhook"
 											],
 											"path": [
 												"analyze",
@@ -121,6 +121,70 @@
 									],
 									"cookie": [],
 									"body": "{\n    \"data\": {\n        \"external_id\": \"12312u3bi12hjhasdjdcaskjhdbaskdhaskdj\",\n        \"job_id\": \"bd77a31a-aeab-43d0-b671-b2a8a7791223\",\n        \"status\": \"QUEUED\"\n    },\n    \"message\": \"Job queued successfully\",\n    \"status\": true\n}"
+								},
+								{
+									"name": "202",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept-Language",
+												"value": "en",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"callback_url\": \"http://laravel.test/api/webhook/analyze\",\n    \"payload\": {\n        \"external_id\": \"2da01f62-c895-4148-a3ff-92644810c4db\",\n        \"image_url\": \"https://imagens-cdn.canalrural.com.br/wp-content/uploads/gr%C3%A3os-soja.jpg\",\n        \"seed_category\": \"soy\"\n    }\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}webhook/analyze/enqueue",
+											"host": [
+												"{{base_url}}webhook"
+											],
+											"path": [
+												"analyze",
+												"enqueue"
+											]
+										}
+									},
+									"status": "ACCEPTED",
+									"code": 202,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.0.1 Python/3.11.14"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 22 Nov 2025 20:29:48 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "214"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"external_id\": \"2da01f62-c895-4148-a3ff-92644810c4db\",\n        \"job_id\": \"e6eb4b39-b6dd-4686-a7ea-9238a22992be\",\n        \"status\": \"QUEUED\"\n    },\n    \"message\": \"Job queued successfully\",\n    \"status\": true\n}"
 								}
 							]
 						},
@@ -147,14 +211,14 @@
 									}
 								],
 								"url": {
-									"raw": "{{base_url}}webhook/analyze/get_status/161ef496-3ca7-4940-85ae-c1587403a115",
+									"raw": "{{base_url}}webhook/analyze/get_status/c380cc3d-ed90-499f-9366-a20c02cbcaff",
 									"host": [
 										"{{base_url}}webhook"
 									],
 									"path": [
 										"analyze",
 										"get_status",
-										"161ef496-3ca7-4940-85ae-c1587403a115"
+										"c380cc3d-ed90-499f-9366-a20c02cbcaff"
 									]
 								},
 								"description": "Este endpoint retorna o status atual de uma tarefa de análise de imagem de grãos previamente enfileirada.  \n  \nÉ utilizado para monitorar se a análise já foi concluída, está em andamento ou se ocorreu algum erro durante o processamento.\n\n**Exemplo de Uso:**  \n  \nUtilizado pela API central ou sistemas integrados para verificar o progresso de uma análise específica antes do recebimento do resultado final via webhook."
@@ -173,9 +237,9 @@
 											}
 										],
 										"url": {
-											"raw": "webhook/analyze/get_status/088fe57b-bb46-45e8-af47-2d78425e7804",
+											"raw": "{{base_url}}webhook/analyze/get_status/088fe57b-bb46-45e8-af47-2d78425e7804",
 											"host": [
-												"webhook"
+												"{{base_url}}webhook"
 											],
 											"path": [
 												"analyze",
@@ -271,6 +335,62 @@
 									],
 									"cookie": [],
 									"body": "{\n    \"data\": {\n        \"job_id\": \"088fe57b-bb46-45e8-af47-2d78425e780a\",\n        \"payload\": null,\n        \"result\": null,\n        \"status\": \"PENDING\"\n    },\n    \"message\": \"Job status retrieved successfully\",\n    \"status\": true\n}"
+								},
+								{
+									"name": "200",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept-Language",
+												"value": "en",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}webhook/analyze/get_status/c380cc3d-ed90-499f-9366-a20c02cbcaff",
+											"host": [
+												"{{base_url}}webhook"
+											],
+											"path": [
+												"analyze",
+												"get_status",
+												"c380cc3d-ed90-499f-9366-a20c02cbcaff"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.0.1 Python/3.11.14"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 22 Nov 2025 21:18:58 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "780"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"data\": {\n        \"error\": null,\n        \"job_id\": \"c380cc3d-ed90-499f-9366-a20c02cbcaff\",\n        \"params_ai\": {\n            \"max_avg_area\": 1231.1574074074074,\n            \"min_avg_area\": 527.6388888888889,\n            \"total_grains\": 38\n        },\n        \"payload\": {\n            \"external_id\": \"2da01f62-c895-4148-a3ff-92644810c4db\",\n            \"image_url\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/base-images/storage/v1/s3/base-images/base-images/classifications/1aHgkzTpbJaY2utbT5cddZksDcsecnlwp1hkvJ4c.jpg\",\n            \"seed_category\": \"corn\"\n        },\n        \"result\": {\n            \"bad_detection\": 11,\n            \"burned\": 0,\n            \"good\": 24,\n            \"greenish\": 0,\n            \"small\": 3,\n            \"unknown\": 0\n        },\n        \"status\": \"COMPLETED\"\n    },\n    \"message\": \"Job status retrieved successfully\",\n    \"status\": true\n}"
 								}
 							]
 						}
@@ -321,9 +441,9 @@
 									}
 								],
 								"url": {
-									"raw": "webhook",
+									"raw": "{{base_url}}webhook",
 									"host": [
-										"webhook"
+										"{{base_url}}webhook"
 									]
 								}
 							},
@@ -398,7 +518,10 @@
 							}
 						],
 						"url": {
-							"raw": ""
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
 						}
 					},
 					"status": "OK",
@@ -469,9 +592,9 @@
 							}
 						],
 						"url": {
-							"raw": "_routes",
+							"raw": "{{base_url}}_routes",
 							"host": [
-								"_routes"
+								"{{base_url}}_routes"
 							]
 						}
 					},

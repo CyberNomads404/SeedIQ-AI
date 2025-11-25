@@ -3,7 +3,7 @@ from typing import Any, Dict
 
 from ..drivers.analyze.analyze_handler import process_job
 from ..views.http_types.http_request import HttpRequest
-from ..services.celery_app import celery_app
+from ..services.celery_service import celery_service
 
 class AnalyzeController:
     def enqueue(self, http_request: HttpRequest) -> Dict[str, Any]:
@@ -22,23 +22,30 @@ class AnalyzeController:
     def get_status(self, http_request: HttpRequest) -> Dict[str, Any]:
         job_id = http_request.path_params.get("job_id")
         
-        async_result = celery_app.AsyncResult(job_id)
+        async_result = celery_service.AsyncResult(job_id)
         
         payload = {
             "job_id": job_id, 
             "status": async_result.state,
             "payload": None,
             "result": None,
+            'params_ai': None,
+            'error': None
         }
         
         if async_result.ready():
             res = async_result.result
             if async_result.successful():
                 payload["payload"] = res.get("payload", payload["payload"])
-                payload["result"] = res.get("result", payload["result"])
-                payload["status"] = "COMPLETED"
+                payload["status"] = res.get("status", payload["status"])
+                if payload["status"] == "COMPLETED":
+                    payload["result"] = res.get("result", payload["result"])
+                    payload["params_ai"] = res.get("params_ai", payload["params_ai"])
+                else:
+                    payload["error"] = res.get("error", payload["error"])
+                
             else:
-                payload["result"] = str(res)
+                payload['result'] = str(res)
                 payload["status"] = "FAILED"
             
         return payload

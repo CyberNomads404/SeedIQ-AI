@@ -39,7 +39,7 @@ class CornAnalyze(BaseAnalyze):
     
     def _classify_corn(self, contour_area: float, grain_image) -> tuple:
         if contour_area < self.min_area:
-            return ("bad_detection", "area too small (noise)")
+            return ("unknown", "area too small (noise)")
         if contour_area < self.min_avg_area:
             return ("small", "area too small (small grain)")
         if contour_area > self.max_avg_area:

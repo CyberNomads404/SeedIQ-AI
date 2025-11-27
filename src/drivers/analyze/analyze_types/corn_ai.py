@@ -3,7 +3,7 @@ class CornAnalyze(BaseAnalyze):
     def __init__(self, image_service):
         super().__init__(image_service)
         self.min_area = 400
-        self.max_area = 1200
+        # self.max_area = 1200
         self.min_avg_area = 400
         self.max_avg_area = 1200
         self.contour_colors = {
@@ -25,7 +25,8 @@ class CornAnalyze(BaseAnalyze):
         for contour in contours:
             x, y, w, h = self.cv2.boundingRect(contour)
             area = w * h
-            if self.min_area <= area <= self.max_area:
+            # if self.min_area <= area <= self.max_area:
+            if self.min_area <= area:
                 total_area += area
                 count_valid += 1
 
@@ -33,12 +34,14 @@ class CornAnalyze(BaseAnalyze):
             raise ValueError("No valid contours to calculate average area.")
 
         average_area = total_area / count_valid
-        self.min_avg_area = average_area * 0.75
+        self.min_avg_area = average_area * 0.50
         self.max_avg_area = average_area * 1.75
     
     def _classify_corn(self, contour_area: float, grain_image) -> tuple:
+        if contour_area < self.min_area:
+            return ("bad_detection", "area too small (noise)")
         if contour_area < self.min_avg_area:
-            return ("small", "area too small (noise)")
+            return ("small", "area too small (small grain)")
         if contour_area > self.max_avg_area:
             return ("bad_detection", "area too large (probably multiple grains)")
         

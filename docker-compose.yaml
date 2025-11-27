@@ -16,7 +16,7 @@ services:
     restart: always
     networks:
       - default
-      - ${EXTERNAL_NET:-default}
+      # - shared_net
 
   worker:
     build:
@@ -34,7 +34,7 @@ services:
     restart: always
     networks:
       - default
-      - shared_net
+      # - shared_net
 
   flower:
     build:
@@ -66,5 +66,6 @@ services:
 networks:
   default:
     driver: bridge
+  
   shared_net:          
     external: true

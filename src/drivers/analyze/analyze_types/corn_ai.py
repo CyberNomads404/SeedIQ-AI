@@ -18,24 +18,37 @@ class CornAnalyze(BaseAnalyze):
     def _average_contour_area(self, contours: list) -> None:
         if not contours:
             raise ValueError("No contours found to calculate average area.")
-        
-        total_area = 0
-        count_valid = 0
 
+        areas = []
         for contour in contours:
             x, y, w, h = self.cv2.boundingRect(contour)
             area = w * h
-            # if self.min_area <= area <= self.max_area:
             if self.min_area <= area:
-                total_area += area
-                count_valid += 1
+                areas.append(area)
 
-        if count_valid == 0:
+        if not areas:
             raise ValueError("No valid contours to calculate average area.")
 
-        average_area = total_area / count_valid
-        self.min_avg_area = average_area * 0.50
-        self.max_avg_area = average_area * 1.75
+        arr = self.np.array(areas, dtype=float)
+
+        if arr.size < 4:
+            robust_mean = float(arr.mean())
+        else:
+            q1 = float(self.np.percentile(arr, 25))
+            q3 = float(self.np.percentile(arr, 75))
+            iqr = q3 - q1
+            lower = q1 - 1.5 * iqr
+            upper = q3 + 1.5 * iqr
+
+            filtered = arr[(arr >= lower) & (arr <= upper)]
+
+            if filtered.size == 0:
+                robust_mean = float(self.np.median(arr))
+            else:
+                robust_mean = float(filtered.mean())
+
+        self.min_avg_area = robust_mean * 0.50
+        self.max_avg_area = robust_mean * 1.75
     
     def _classify_corn(self, contour_area: float, grain_image) -> tuple:
         if contour_area < self.min_area:

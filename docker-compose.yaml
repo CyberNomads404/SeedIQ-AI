@@ -16,7 +16,7 @@ services:
     restart: always
     networks:
       - default
-      - shared_net
+      - ${EXTERNAL_NET:-default}
 
   worker:
     build:
